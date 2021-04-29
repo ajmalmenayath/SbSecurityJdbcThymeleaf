@@ -44,7 +44,7 @@ public class CustomerController {
 	     if (target == null) {
 	        return;
 	     }
-	     System.out.println("Target=" + target);
+	     System.out.println("Target    =" + target);
 
 	     if (target.getClass() == QuotationModel.class) {
 	        dataBinder.setValidator(Qvalidate);
