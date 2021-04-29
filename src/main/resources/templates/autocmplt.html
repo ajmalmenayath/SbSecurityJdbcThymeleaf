@@ -1,0 +1,65 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Auto-complete example JQuery</title>
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+
+ <script th:inline="javascript">
+    $(document).ready(function(){
+
+     // Initialize 
+     $( "#name" ).autocomplete({
+        source: function( request, response ) {
+          // Fetch data
+          $.ajax({
+            url: "/autocmplt",
+            type: 'GET',
+            dataType: "json",
+            data: {
+              "term": request.term
+            },
+            success: function( data ) {
+            	
+            	 response(data.map(function(value){
+                     console.log(value);
+                     return {
+                         label: value.name,
+                         value: value.name,
+                         description: value.
+
+                     };
+                 }));
+
+            }
+          });
+        },
+        select: function (event, ui) {
+          // Set selection
+          $('#name').val(ui.item.value); // display the selected text
+          $('#iso').val(ui.item.description); // save selected id to input
+          return false;
+        }
+      });
+
+    });
+    </script>
+
+
+
+</head>
+<body>
+    <div class="ui-widget">
+        <label for="name">search Name: </label><input  type="text" name="name" id="name" />
+         <label for="iso">search id: </label>
+         <input type="text" name="iso" id="iso" />
+         
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+  align-items: center;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  color: red;
+  font-size :15;
+  font-weight: bold; 
+}
+h3{
+
+   font-size :6;
+   font-weight: bold;
+   color: red;
+  
+}
+
+
+
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+</style>
+<link rel="stylesheet" th:href="@{/css/catstyle.css}"/>
+<link rel="stylesheet" th:href="@{/css/split.css}"/>
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+    <script type="text/javascript" th:src="@{/js/UpdateQuotation.js}"></script>
+
+
+
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+</head>
+<body>
+
+      <div class="headr">
+        <h1>Create Delivery Note</h1>
+              
+      </div>
+     
+      <div style="padding-top: 80px;">
+      	 <div class="ctr">
+			<div class="ctd-1 ">
+				<label>CUSTOMER NAME:</label>
+			</div>
+			<div class="ctd-2 ">
+				<label th:utext="${UpdateQDetails.cname}"></label>				    
+			</div>
+		 </div>
+		 
+		  <div class="ctr">
+			<div class="ctd-1 ">
+				<label>Invorse No:</label>
+			</div>
+			<div class="ctd-2 ">
+				<label th:utext="${UpdateQDetails.invorse_no}"></label>				    
+			</div>
+			
+		   </div>
+		  <div class="ctr">
+			<div class="ctd-1 ">
+				<label>LPO NO :</label>
+			</div>
+				<div class="ctd-2 ">
+					
+ 			   	    <input type="text" style="display:none;" th:value="${UpdateQDetails.cid}" th:id="cid"/>
+ 					<input type="text" th:value="${UpdateQDetails.lpo}" th:id="lpo"> 			    
+				</div>
+		   </div>
+		 
+	      	      
+      </div>
+      
+     
+     
+      
+      <div th:id="Start">
+         
+         
+         <div style="border-style: groove;">
+         <div>
+         		<h2 class="lrh2">Show Items</h2>
+         </div>
+         <div>
+         
+         <table style="align-items: center; width: 80%">
+						<thead>
+							<tr style="width:20%;">
+								<th style="text-align:center;width: 80%;">Item</th>
+								<th style="text-align:center;width: 50%;">quantity</th>
+							</tr>
+					   </thead>
+						<tbody>
+							<tr style="width:20%;" th:each ="qtitems : ${qtitems}">
+							
+								<td><input type="text" style="width: 80%;" th:value="${qtitems.item_name}" readonly />
+		        			 	</td>
+		        			 	<td><input type="text" style="width: 50%; text-align:left;" th:value="${qtitems.count}" readonly/>
+		        			 	</td>
+		        			 			        			 			        			 	
+		        			</tr>
+            				
+                        </tbody>
+                       
+					</table>
+         
+         </div>
+      
+      </div>
+      
+      
+     </div>
+   	
+  
+     <div th:if="${errorMessage != null}"
+           th:utext="${errorMessage}" class="error">...</div>
+	 
+	 <div id="pdfgen" style=" align :right;">
+				<button type="button" id="DNpdfbutton" class="button1">Generete Delivery Note</button>
+				<button type="button" id="finish" class="button2" style="display: none;">Finish Here</button>
+								
+	 </div>
+		
+		
+	
+			
+	</body>
+</html>

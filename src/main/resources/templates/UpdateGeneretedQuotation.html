@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+  align-items: center;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  color: red;
+  font-size :15;
+  font-weight: bold; 
+}
+h3{
+
+   font-size :6;
+   font-weight: bold;
+   color: red;
+  
+}
+
+
+
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+</style>
+<link rel="stylesheet" th:href="@{/css/catstyle.css}"/>
+<link rel="stylesheet" th:href="@{/css/split.css}"/>
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+<script type="text/javascript" th:src="@{/js/UpdateQuotation.js}"></script>
+
+
+
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+</head>
+<body>
+
+      <div class="headr">
+        <h1>CREATED QUOTATION</h1>
+        <button type="button" th:id="update_all">Update</button>
+        <button type="button" th:id="discart_btn" style="display: none">Discard</button>
+      
+      </div>
+      <div style="padding-top: 80px;">
+      	 <div class="ctr">
+			<div class="ctd-1 ">
+				<label>CUSTOMER NAME:</label>
+			</div>
+			<div class="ctd-2 ">
+				<label th:utext="${UpdateQDetails.cname}"></label>				    
+			</div>
+		 </div>
+		 
+		  <div class="ctr">
+			<div class="ctd-1 ">
+				<label>Invorse No:</label>
+			</div>
+			<div class="ctd-2 ">
+				<label th:utext="${UpdateQDetails.invorse_no}"></label>				    
+			</div>
+		 </div>
+		      	      
+      </div>
+      
+     
+     
+      
+      <div th:id="Start">
+         <div>
+         	
+	   	    <div style="border-style: groove;">
+		   	    
+		   	    <div>
+		         <h2 class="lh2" style="padding-top: 125px;">Quotation Details</h2>
+		   	    </div>
+	   	    	<table style="width: 40%">
+	   	    															
+					 <tr>
+						 <td>VALIDITY</td> 
+												
+						 <td>:</td>
+						 <td th:utext="${UpdateQDetails.validity}"></td>
+				     </tr>
+				     
+				     <tr>
+						 <td>DELIVERY</td> 
+												
+						 <td>:</td>
+						 <td th:utext="${UpdateQDetails.delivery}"></td>
+				     </tr>
+				     
+				     <tr>
+						 <td>WARRANTY</td> 
+												
+						 <td>:</td>
+						 <td th:utext="${UpdateQDetails.warranty}"></td>
+				     </tr>
+				     
+				     <tr>
+						 <td>PAYMENT</td> 
+												
+						 <td>:</td>
+						 <td th:utext="${UpdateQDetails.payment}"></td>
+				     </tr>
+				     
+				     <tr>
+						 <td>QTSN TYPE</td> 
+												
+						 <td>:</td>
+						 <td th:utext="${UpdateQDetails.cam_type}"></td>
+				     </tr>
+
+	   	    	</table>
+	   	    </div>
+         </div>
+         <div  style="border-style: groove;">
+         	<div>
+		   	 	<h2 class="lh2" >Note</h2>			   
+			</div>  
+			<div>
+				 <ul>
+	     			 <li th:each="qtnnotes : ${qtnnotes}">
+	        			 <h3  th:text=${qtnnotes.note}></h3>
+	     			 </li>
+   				 </ul>
+			</div>
+         
+         
+         </div>
+         <div style="border-style: groove;">
+         <div>
+         		<h2 class="lrh2">Show Items</h2>
+         </div>
+         <div>
+         
+         <table style="align-items: center; width: 80%">
+						<thead>
+							<tr style="width:20%;">
+							<th style="text-align:center">Item</th>
+							<th style="text-align:center">Price</th>
+							<th></th>
+							<th style="text-align:center">quantity</th>
+							<th></th>
+							<th style="text-align:center">Total</th>
+							</tr>
+					   </thead>
+						<tbody>
+							<tr style="width:20%;" th:each ="qtitems : ${qtitems}">
+								<td><input type="text" style="width: 100%;" th:value="${qtitems.item_name}" readonly />
+		        			 	</td>
+		        			 	<td><input type="text" style="width: 100%; text-align:right;" th:value="${qtitems.price}" readonly/>
+		        			 	</td>
+		        			 	<td>*</td><td><input type="text" style="width: 100%; text-align:right;" th:value="${qtitems.count}" readonly/>
+		        			 	</td>
+		        			 	<td>=</td>
+		        			 	<td><input type="text" style="width: 100%; text-align:right;" th:value="${qtitems.total}" readonly />
+		        			 	</td>
+		        			 	
+		        			</tr>
+            				
+                        </tbody>
+                        <tfoot id="footid">	
+                        	<tr>
+                        		<td colspan="5" style=" font-size: 16; align-content: center;">
+                        			Exclusive VAT Total
+                        		</td>
+                        		<td>
+                        			<input type="text" th:value="${sum}" style="width: 100%; text-align:right;" readonly>
+                        		</td>
+                        	</tr>
+                        	<tr>
+                        		<td colspan="5" style=" font-size: 16; align-content: center;">
+                        			VAT Total
+                        		</td>
+                        		<td>
+                        			<input type="text" th:value="${vat}" style="width: 100%; text-align:right;" readonly>
+                        		</td>
+                        	</tr>
+                        	<tr>
+                        		<td colspan="5" style=" font-size: 16; align-content: center;">
+                        			Inclusive VAT Total
+                        		</td>
+                        		<td>
+                        			<input type="text" th:value="${vattotal}" style="width: 100%; text-align:right;" readonly>
+                        		</td>
+                        	</tr>
+                        </tfoot>				
+					
+					</table>
+         
+         </div>
+      
+      </div>
+      
+      
+     </div>
+      
+      
+      
+		
+  
+      <div th:if="${errorMessage != null}"
+           th:utext="${errorMessage}" class="error">...</div>
+	
+	 <div id="allPage" style="display: none;">
+		<div>
+	         <h2 class="lh2" style="padding-top: 125px;">Quotation Details</h2>
+	    </div>
+	
+	    <div id="Qdetails" style="display:none;">
+				
+		
+			
+		</div>
+			<div class="container">
+			  <form th:id="QUForm" th:object="${UpdateQDetails}">
+				  
+				 <div class="ui-widget">
+				  <input type="text" style="display:none;" value="${UpdateQDetails.cid}" th:field="*{cid}" th:id="cid"/>
+				  <input type="text" style="display:none;" value="${UpdateQDetails.cdid}" th:field="*{cdid}" th:id="cdid"/>
+				  <input type="text" style="display:none;" value="${UpdateQDetails.cname}" th:field="*{cname}" th:id="cname"/>
+				 
+				
+				  <div class="row">
+				    <div class="col-25">
+				      <label for="*{validity}">VALIDITY</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{validity}">
+				           <option value="${UpdateQDetails.validity}"  th:utext="${UpdateQDetails.validity}"></option>
+				           <option value="">--</option>
+                           <option value="1day"> 1 Days</option>
+                           <option value="7days"> 7 Days </option>
+                           <option value="15days"> 15 Days </option>
+                           <option value="30days"> 30 Days </option>
+                           <option value="45days"> 45 Days </option>
+                           <option value="2months"> 2 months </option>
+                           <option value="6months"> 6 months </option>
+                           <option value="1year"> 1 year </option>
+                           <option value="1year"> 2 year </option>
+                           
+                        </select>
+                         <div class="col-35">
+				             <span th:if="${#fields.hasErrors('validity')}" th:errors="*{validity}">..</span>
+				         </div>
+				    </div >
+				</div>
+				 <div class="row">
+				    <div class="col-25">
+				      <label for="*{delivery}">DELIVERY</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{delivery}">
+				           <option value="${UpdateQDetails.delivery}"  th:utext="${UpdateQDetails.delivery}"></option>
+				           <option value="">--</option>
+				           <option value="1day"> 1 Day</option>
+                           <option value="7days"> 7 Days  </option>
+                           <option value="15days"> 15 Days </option>
+                           <option value="30days"> 30 Days </option>
+                           <option value="45days"> 45 Days </option>
+                           <option value="2months">  2 Months </option>
+                           <option value="6months"> 6 Months </option>
+                           <option value="1year">  1 year </option>
+                           
+                        </select>
+				    </div >
+				
+				    <div class="col-35">
+				       <span th:if="${#fields.hasErrors('delivery')}" th:errors="*{delivery}">..</span>
+				    </div>
+				   
+				   </div>
+				   
+				   
+				    <div class="row">
+				    <div class="col-25">
+				      <label for="*{warrenty}">WARRANTY</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{warranty}">
+				           <option value="${UpdateQDetails.warranty}"  th:utext="${UpdateQDetails.warranty}"></option>
+				           <option value="">--</option>
+                           <option value="15 Days">  15 Days  </option>
+                           <option value="One Month"> 1 month  </option>
+                           <option value="2 Months">  2 Months  </option>
+                           <option value="6 Months">  6 months </option>
+                           <option value="One Year">   1 Year </option>
+                           <option value="Two Year">   2 Year </option>
+                           
+                        </select>
+				    </div >
+				
+				    <div class="col-35">
+				       <span th:if="${#fields.hasErrors('warranty')}" th:errors="*{warranty}">..</span>
+				    </div>
+				   
+				   </div>
+				   
+				   
+				   <div class="row">
+				    <div class="col-25">
+				      <label for="*{payment}">PAYMENT :</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{payment}">
+				           <option value="${UpdateQDetails.payment}"  th:utext="${UpdateQDetails.payment}"></option>
+				           <option value="">--</option>  
+				           <option value="1 days">  1 Days  </option>
+				           <option value="7 days">  7 Days  </option>
+                           <option value="15 days">  15 Days  </option>
+                           <option value="One month"> 1 month  </option>
+                           <option value="2 Months">  2 Months  </option>
+                           <option value="6 Months">  6 months </option>
+                           <option value="One Year">   1 Year </option>
+                           <option value="Two Year">   2 Year </option>
+                           
+                        </select>
+				    </div >
+				
+				   
+				   </div>
+				   
+				    
+				   <div class="row">
+				    <div class="col-25">
+				      <label for="*{cam_type}">Work Type :</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{cam_type}">
+				           <option value="${UpdateQDetails.cam_type}"  th:utext="${UpdateQDetails.cam_type}"></option>
+				           <option value="">--</option>
+				           <option value="CCTV System installation">  CCTV Instalation </option>
+				           <option value="Electrical Work">  Electrical Work </option>
+                           <option value="CCTV Cabling"> CCTV Cabling </option>
+                           <option value="Telephone">Telephone </option>
+                           <option value="Piping"> Piping  </option>
+                           <option value="Network"> Network </option>
+                          
+                        </select>
+				    </div >
+				
+				   
+				   </div>
+				   
+				   
+				   <div class="row">
+				   <div class="col-75">
+				      <input type="submit" value="Update" th:id="qtbutton">
+				      </div>
+				      
+				    
+				  </div>
+				 </div> 
+				  
+			  </form>
+			   
+			 	 <div th:id="qupdate" style="display: none;">
+			  		<div class="row">
+				   		<div class="col-75">
+				      		<input type="submit" value="Update" th:id="qtupdate">
+				        </div>
+				    </div> 
+			  
+			     </div>
+			   
+			   <div th:id="hnote">
+			     <h2 class="lh2" >Note</h2>			   
+			   </div>  
+			  
+			  <div th:id="shownotes" style="width: 80%;">
+				  <table id="notetable">
+					  <tbody>
+	            		<tr th:each ="qtnnotes : ${qtnnotes}" th:id="${qtnnotes.nid}+tr">
+					  		<td style="width:65% ;height:25px;">
+					  			<h3 th:id="${qtnnotes.nid}+h" th:utext="${qtnnotes.note}"></h3>
+					  		</td>
+					  		<td style="width:35%; height:25px;">
+					  			<button th:id="${qtnnotes.nid}" th:type="button">delete</button>
+					  		</td>
+					  	</tr>
+					  </tbody>
+				  </table>
+						
+			  </div>
+			  
+			  <div id="notes">
+			  
+			  
+			  
+			  <form th:id="noteForm">
+			      <input type="text" style="display:none;" th:name="cid" th:id="cid"/>
+				  <div class="row">
+				  <h2>Add Note:</h2>
+				  <div class="col-40">
+				        <select th:name="note" th:id="note">
+				        
+				           <option value=""> -- </option>
+				           <option value="All the permissions from the concerned authorities shall be obtained by the client"> All the permissions from the concerned authorities shall be obtained by the client  </option>
+				           <option value="Quoted prices are not include VAT, therefore any applicable VAT (5%) ">  Quoted prices are not include VAT, therefore any applicable VAT (5%)  </option>
+                           <option value="Security Industry Regulatory Agency charge will be extra as per the requirement ">  Security Industry Regulatory Agency charge will be extra as per the requirement   </option>
+                           <option value="One month"> others  </option>
+                           
+                           
+                        </select>
+                        </div> 
+                    
+                       
+				   		<div class="col-75">
+                        <input type="submit" value="Submit">
+				  		</div>
+				  		</div>
+				  		
+			  </form>
+			 </div>
+			  
+		  
+		  
+		</div>
+		
+		<div id="additems">
+			
+			<div class="lsplit">
+				<h2 class="lrh2">Show Items</h2>
+				
+				 <div id="manualAdd" style="border-style: solid;">
+			    	<h2 class="lrh2">Add Item Manualy</h2>
+			    	<input type="text" th:id="mtid" style="display: none;"/>
+					 <div class="row">
+					    <div class="col-25">
+					      <label>Item Name</label>
+					    </div>
+					    <div class="col-40">
+					      <input type="text" th:id="mname">
+					    </div>
+					    
+					 </div>
+					  <div class="row">
+					    <div class="col-25">
+					      <label>Price</label>
+					    </div>
+					    <div class="col-40">
+					      <input type="text" th:id="mprice">
+					    </div>
+					    
+					 </div>
+					 
+					 <div class="row">
+					    <div class="col-25">
+					      <label>quantity</label>
+					    </div>
+					    <div class="col-40">
+					      <input type="text" th:id="mquantity">
+					    </div>
+					    
+					 </div>
+					 
+					 <div class="row">
+				   		<div style="padding-left: 80px;">
+				      		<button type="button" th:id="mbutton">Add</button>
+				      	</div>
+				      
+				    
+				  	 </div>
+					 
+				</div>
+				
+				<div id="tablediv">
+				
+					<table id="itemtable" style="align-items: center;">
+					<thead>
+						<tr style="width:20%;">
+						<th style="text-align:center">Item</th>
+						<th style="text-align:center">Price</th>
+						<th></th>
+						<th style="text-align:center">quantity</th>
+						<th></th>
+						<th style="text-align:center">Total</th>
+						</tr>
+				   </thead>
+						<tbody>
+							<tr style="width:20%;" th:each ="qtitems : ${qtitems}" th:id="${qtitems.sub_id}">
+								<td><input type="text" th:id="${qtitems.sub_id}+item" style="width: 100%;" th:value="${qtitems.item_name}" readonly />
+		        			 	</td>
+		        			 	<td><input type="text"  th:id="${qtitems.sub_id}+price" style="width: 100%; text-align:right;" th:value="${qtitems.price}"/>
+		        			 	</td>
+		        			 	<td>*</td><td><input type="text"  th:id="${qtitems.sub_id}+count" style="width: 100%; text-align:right;" th:value="${qtitems.count}"/>
+		        			 	</td>
+		        			 	<td>=</td>
+		        			 	<td><input type="text"  th:id="${qtitems.sub_id}+total" style="width: 100%; text-align:right;" th:value="${qtitems.total}" readonly />
+		        			 	</td>
+		        			 	<td><button type="button" th:id="${qtitems.sub_id}+btn">delete</button></td>
+		        			</tr>
+            				
+                        </tbody>
+                        <tfoot>	
+                        	<tr id="footid">
+                        		<td colspan="5" style=" font-size: 16; align-content: center;">
+                        			Total
+                        		</td>
+                        		<td>
+                        			<input type="text" id="footsum" th:value="${sum}" style="width: 100%; text-align:right;" readonly>
+                        		</td>
+                        	</tr>
+                        </tfoot>				
+					
+					</table>
+				
+				
+				</div>
+				
+			
+			</div>
+					
+			<div class="rsplit">
+				<h2 class="lrh2">Select Items</h2>
+				<div id="btcontainer">
+						<button class="btn active" type="button"  th:id="all">All</button>
+				 		<button class="btn" type="button" th:each ="catname : ${catname}" th:id="${catname}"  th:utext="${catname}"></button>
+				 		
+					 		
+				</div>
+				
+                           <script>
+								// Add active class to the current button (highlight it)
+								var header = document.getElementById("btcontainer");
+								var btns = header.getElementsByClassName("btn");
+								for (var i = 0; i < btns.length; i++) {
+								  btns[i].addEventListener("click", function() {
+								  var current = document.getElementsByClassName("active");
+								  current[0].className = current[0].className.replace(" active", "");
+								  this.className += " active";
+								  });
+								}
+							</script>              
+				
+				<div id="listcat">
+					<button type="button" th:each ="allitem : ${allitem}" th:id="${allitem.sub_id}">
+					<h4 th:utext="${allitem.sub_name}"></h4>
+					<img th:src="@{/image/logo.jpeg}" alt="select" title="select" width="100" height="50"/>
+					<h4 style="white-space: nowrap;">price:</h4>
+					<h4 th:utext="${allitem.price}"></h4>
+	        				
+					</button>
+				
+				</div>
+			</div>
+			
+		
+		</div>
+		
+		
+	 </div>
+	 
+	 <div id="pdfgen" style=" align :right;">
+				<button type="button" id="pdfbutton" class="button1">Generete PDF</button>
+				<button type="button" id="finish" class="button2" style="display: none;">Finish the Updation Here</button>
+								
+	 </div>
+		
+		
+	
+			
+	</body>
+</html>

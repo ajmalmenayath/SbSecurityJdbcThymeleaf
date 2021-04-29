@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 20%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.alldiv { 
+	
+  border: 1px solid black;
+  padding: 10px 10px 90% 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #8f8877;
+}
+.headdiv {
+    background-color: #d5e8dc;
+	padding-left: 40%;
+}
+.cmpdiv {
+	background-color: #ddebe2;
+	text-align: center;
+	height: 350px;
+}
+.cnamediv {
+	width: 90%;
+	height :70px;
+	overflow:auto;
+}

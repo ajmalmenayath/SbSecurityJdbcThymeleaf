@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  
+  <link rel="stylesheet" th:href="@{/css/popupstyle.css}"/>
+  <script type="text/javascript" th:src="@{/js/DynamicSearch.js}"></script>
+  
+<style>
+
+.notfound{
+  display: none;
+}
+table {
+  border-collapse: collapse;
+  width: 80%;
+  
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+
+ <th:block th:include="/head"></th:block>
+</head>
+<body>
+
+ <div th:if="${errorMessage != null}"
+           th:utext="${errorMessage}" class="error">...</div>
+	
+
+ <br>
+ <br>
+<h2 align="center">Subcategory List</h2>
+<div>
+	<div style="width: 25%;float: right;">
+		<input type='text' id='txt_searchall' placeholder='Enter search text'/>&nbsp;
+	</div>
+	<div>
+	
+	<table>
+	  <thead>
+		  <tr>
+		    <th>SubCategoryName</th>
+		    <th>CategoryName</th>
+		    <th>Price</th>
+		    <th>Discription</th>
+		    <th>Manipulate</th>
+		    
+		  </tr>
+	  </thead>
+	  <tbody>
+		  <tr th:each ="sublist : ${sublist}">
+		      
+		                 
+		                 <td style="display:none;"></td>
+			               <td th:utext="${sublist.sub_name}"></td>
+			               <td th:utext="${sublist.cat_name}"></td>
+			               <td th:utext="${sublist.price}"></td>
+			               <td th:utext="${sublist.disc}"></td>
+			              <td>	
+			              
+								<a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${sublist.sub_id}+'2'"><img th:src="@{/image/v.png}"  alt="View" title="View" width="20" height="20"/></a>
+					
+								<div class="modal modal-warning fade in" th:id="modal-warning+${sublist.sub_id}+'2'" >
+								    <div class="modal-dialog">
+								        <div class="modal-content">
+								            <div class="modal-header">
+								                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                    <span aria-hidden="true">×</span></button>
+								                <h5 class="modal-title">View Category</h5>
+								            </div>
+								            <div class="modal-body">
+								           									  <div class="row">
+													    <div class="col-35">
+													      <label class="rdiv">Subcategory Name</label>
+													    </div>
+													    <div class="col-50">
+													      <input type="text" th:value="${sublist.sub_name}" />
+													    </div>
+													  
+													  </div>
+													  
+													  <div class="row">
+													    <div class="col-35">
+													      <label class="rdiv">Price</label>
+													    </div>
+													    <div class="col-50">
+													      <input type="text" th:value="${sublist.price}"/>
+													    </div>
+													   
+													  </div>
+													  
+													  <div class="row">
+													    <div class="col-35">
+													      <label class="rdiv">Description</label>
+													    </div>
+													    <div class="col-50">
+													      <textarea rows="4" cols="30" th:utext=${sublist.disc} ></textarea>
+													    </div>
+													  </div>
+													 	<br>			  
+													  <div class="row">
+													    <div class="col-35">
+													      <label class="rdiv">Category</label>
+													    </div>
+													    <div  class="col-50">
+													      <input type="text" th:value="${sublist.cat_name}"/>
+													    </div>
+													
+													   
+													</div>
+													   
+										      </div>
+								            <div class="modal-footer">
+								                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+								                <a type="button" class="btn btn-outline" th:href="@{/subcat/update/{sub_id}(sub_id=${sublist.sub_id})}"><i class="fa fa-check"></i>&nbsp;Update</a>
+								            </div>
+								        </div>
+								    </div>
+								</div>
+								
+		                    <a th:href="@{/subcat/update/{sub_id}(sub_id = ${sublist.sub_id})}" th:object="${sublist}"><img th:src="@{/image/m.jpg}" alt="modify" title="modify" width="20" height="20"/></a>
+							
+					         
+		  				    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${sublist.sub_id}+'1'"><img th:src="@{/image/d.jpg}" alt="delete" title="delete" width="20" height="20"/></a>
+					
+								<div class="modal modal-warning fade in" th:id="modal-warning+${sublist.sub_id}+'1'" >
+								    <div class="modal-dialog">
+								        <div class="modal-content">
+								            <div class="modal-header">
+								                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                    <span aria-hidden="true">×</span></button>
+								                <h5 class="modal-title">Delete Category</h5>
+								            </div>
+								            <div class="modal-body">
+								                <h3>Are you sure want to delete this Category?</h3>
+								            </div>
+								            <div class="modal-footer">
+								                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+								                <a type="button" class="btn btn-outline" th:href="@{/subcat/delete/{sub_id}(sub_id=${sublist.sub_id})}"><i class="fa fa-check"></i>&nbsp;Yes</a>
+								            </div>
+								        </div>
+								    </div>
+								</div>
+								
+																	
+		                 </td>
+			              
+		               </tr>
+		               <tr class='notfound'>
+    					 <td colspan='4'>No record found</td>
+  					   </tr>
+	               </tbody>
+	    
+	</table>
+	</div>
+</div>
+
+</body>
+</html>

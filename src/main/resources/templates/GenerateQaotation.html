@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+  align-items: center;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  color: red;
+  font-size :15;
+  font-weight: bold; 
+}
+h3{
+
+   font-size :6;
+   font-weight: bold;
+   color: red;
+  
+}
+
+
+
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+</style>
+<link rel="stylesheet" th:href="@{/css/catstyle.css}"/>
+<link rel="stylesheet" th:href="@{/css/split.css}"/>
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+<script type="text/javascript" th:src="@{/js/postrequest.js}"></script>
+<script type="text/javascript" th:src="@{/js/getrequest.js}"></script>
+
+
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+</head>
+<body>
+
+      <div class="headr">
+        <h1>CREATE QUOTATION HERE</h1>
+        <button type="button" id="discart_btn" style="display: none;">Discard</button>
+      
+      </div>
+     
+      <div>
+         <h2 class="lh2" style="padding-top: 125px;">Quotation Details</h2>
+      </div>
+
+		<div id="Qdetails" style="display:none;">
+				
+		
+			
+		</div>
+  
+      <div th:if="${errorMessage != null}"
+           th:utext="${errorMessage}" class="error">...</div>
+	
+	<div id="allPage">
+			<div class="container">
+			  <form th:id="QForm" th:object="${quotation_Form}">
+				  
+				 <div class="ui-widget">
+				  <input type="text" style="display:none;" value="${sub_catForm.cid}" th:field="*{cid}" th:id="cid"/>
+				  <div class="row">
+				    <div class="col-25">
+				      <label for="*{cname}">Company Name</label>
+				    </div>
+				    <div class="col-40">
+				      <input type="text" th:field="*{cname}" name="cname" value="${sub_catForm.cname}" th:id="cname"/>
+				    </div>
+				    <div class="col-35">
+						<span th:if="${#fields.hasErrors('cname')}" th:errors="*{cname}">..</span>				    
+				    </div>
+				  </div>
+				  
+				  <div class="row">
+				    <div class="col-25">
+				      <label for="*{trnno}">TRN NO:</label>
+				    </div>
+				    <div class="col-40">
+				      <input type="text" th:field="*{trnno}" name="trnno" value="${sub_catForm.cname}" th:id="trnno"/>
+				    </div>
+				    <div class="col-35">
+						<span th:if="${#fields.hasErrors('trnno')}" th:errors="*{trnno}">..</span>				    
+				    </div>
+				  </div>
+				 
+				 
+				 <div class="row">
+				    <div class="col-25">
+				      <label for="*{emirates}">EMIRATES</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{emirates}" th:id="emirates">
+				           <option value=""> -- </option>
+                           <option value="Abu Dhabi">  Abu Dhabi</option>
+                           <option value="Dubai"> Dubai </option>
+                           <option value="Sharjah"> Sharjah </option>
+                           <option value="Umm al-Qaiwain"> Umm al-Qaiwain </option>
+                           <option value="Fujairah"> Fujairah </option>
+                           <option value="Ajman"> Ajman </option>
+                           <option value="Ra’s al-Khaimah"> Ra’s al-Khaimah </option>
+                        </select>
+                         <div class="col-35">
+				             <span th:if="${#fields.hasErrors('emirates')}" th:errors="*{emirates}">..</span>
+				         </div>
+				    </div >
+				</div>
+				 
+					  
+				  <div class="row">
+				    <div class="col-25">
+				      <label for="*{validity}">VALIDITY</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{validity}">
+				           <option value=""> -- </option>
+                           <option value="1day"> 1 Days</option>
+                           <option value="7days"> 7 Days </option>
+                           <option value="15days"> 15 Days </option>
+                           <option value="30days"> 30 Days </option>
+                           <option value="45days"> 45 Days </option>
+                           <option value="2months"> 2 months </option>
+                           <option value="6months"> 6 months </option>
+                           <option value="1year"> 1 year </option>
+                           <option value="1year"> 2 year </option>
+                           
+                        </select>
+                         <div class="col-35">
+				             <span th:if="${#fields.hasErrors('validity')}" th:errors="*{validity}">..</span>
+				         </div>
+				    </div >
+				</div>
+				 <div class="row">
+				    <div class="col-25">
+				      <label for="*{delivery}">DELIVERY</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{delivery}">
+				           <option value=""> -- </option>
+                           <option value="1day"> 1 Day</option>
+                           <option value="7days"> 7 Days  </option>
+                           <option value="15days"> 15 Days </option>
+                           <option value="30days"> 30 Days </option>
+                           <option value="45days"> 45 Days </option>
+                           <option value="2months">  2 Months </option>
+                           <option value="6months"> 6 Months </option>
+                           <option value="1year">  1 year </option>
+                           
+                        </select>
+				    </div >
+				
+				    <div class="col-35">
+				       <span th:if="${#fields.hasErrors('delivery')}" th:errors="*{delivery}">..</span>
+				    </div>
+				   
+				   </div>
+				   
+				   
+				    <div class="row">
+				    <div class="col-25">
+				      <label for="*{warrenty}">WARRANTY</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{warranty}">
+				           <option value=""> -- </option>
+                           <option value="15 Days">  15 Days  </option>
+                           <option value="One Month"> 1 month  </option>
+                           <option value="2 Months">  2 Months  </option>
+                           <option value="6 Months">  6 months </option>
+                           <option value="One Year">   1 Year </option>
+                           <option value="Two Year">   2 Year </option>
+                           
+                        </select>
+				    </div >
+				
+				    <div class="col-35">
+				       <span th:if="${#fields.hasErrors('warranty')}" th:errors="*{warranty}">..</span>
+				    </div>
+				   
+				   </div>
+				   
+				   
+				   <div class="row">
+				    <div class="col-25">
+				      <label for="*{payment}">PAYMENT :</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{payment}">
+				           <option value=""> -- </option>
+				           <option value="1 days">  1 Days  </option>
+				           <option value="7 days">  7 Days  </option>
+                           <option value="15 days">  15 Days  </option>
+                           <option value="One month"> 1 month  </option>
+                           <option value="2 Months">  2 Months  </option>
+                           <option value="6 Months">  6 months </option>
+                           <option value="One Year">   1 Year </option>
+                           <option value="Two Year">   2 Year </option>
+                           
+                        </select>
+				    </div >
+				
+				   
+				   </div>
+				   
+				    
+				   <div class="row">
+				    <div class="col-25">
+				      <label for="*{cam_type}">SUBJECT :</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{cam_type}">
+				           <option value=""> -- </option>
+				           <option value="CCTV System installation">  CCTV Instalation </option>
+				           <option value="Electrical Work">  Electrical Work </option>
+                           <option value="CCTV Cabling"> CCTV Cabling </option>
+                           <option value="Telephone">Telephone </option>
+                           <option value="Piping"> Piping  </option>
+                           <option value="Network"> Network </option>
+                          
+                        </select>
+				    </div >
+				
+				   
+				   </div>
+				   
+				   
+				   <div class="row">
+				   <div class="col-75">
+				      <input type="submit" value="Submit" th:id="qtbutton">
+				      </div>
+				      
+				    
+				  </div>
+				 </div> 
+				  
+			  </form>
+			 	 <div th:id="qupdate" style="display: none;">
+			  		<div class="row">
+				   		<div class="col-75">
+				      		<input type="submit" value="Update" th:id="qtupdate">
+				        </div>
+				    </div> 
+			  
+			     </div>
+			    
+			   <div th:id="hnote" style="display:none;">
+			     <h2 class="lh2" >Note</h2>			   
+			   </div>  
+			  
+			  <div th:id="shownotes" style="display:none; width: 80%;">
+						
+			  </div>
+			  
+			  <div id="notes" style="display: none;">
+			  
+			  
+			  
+			  <form th:id="noteForm">
+			      <input type="text" style="display:none;" th:name="cid" th:id="cid"/>
+				  <div class="row">
+				  <div class="col-40">
+				        <select th:name="note" th:id="note">
+				        
+				           <option value=""> -- </option>
+				           <option value="All the permissions from the concerned authorities shall be obtained by the client"> All the permissions from the concerned authorities shall be obtained by the client  </option>
+				           <option value="Quoted prices are not include VAT, therefore any applicable VAT (5%) ">  Quoted prices are not include VAT, therefore any applicable VAT (5%)  </option>
+                           <option value="Security Industry Regulatory Agency charge will be extra as per the requirement ">  Security Industry Regulatory Agency charge will be extra as per the requirement   </option>
+                           <option value="One month"> others  </option>
+                           
+                           
+                        </select>
+                        </div> 
+                    
+                       
+				   		<div class="col-75">
+                        <input type="submit" value="Submit">
+				  		</div>
+				  		</div>
+				  		
+			  </form>
+			  </div>
+			  
+		  
+			  
+		</div>
+		
+		<div id="additems" style="display:none;">
+			
+			<div class="lsplit">
+				<h2 class="lrh2">Show Items</h2>
+				
+			    <div id="manualAdd" style="border-style: solid;">
+			    	<h2 class="lrh2">Add Item Manualy</h2>
+			    	<input type="text" th:id="mtid" style="display: none;"/>
+					 <div class="row">
+					    <div class="col-25">
+					      <label>Item Name</label>
+					    </div>
+					    <div class="col-40">
+					      <input type="text" th:id="mname">
+					    </div>
+					    
+					 </div>
+					  <div class="row">
+					    <div class="col-25">
+					      <label>Price</label>
+					    </div>
+					    <div class="col-40">
+					      <input type="text" th:id="mprice">
+					    </div>
+					    
+					 </div>
+					 
+					 <div class="row">
+					    <div class="col-25">
+					      <label>quantity</label>
+					    </div>
+					    <div class="col-40">
+					      <input type="text" th:id="mquantity">
+					    </div>
+					    
+					 </div>
+					 
+					 <div class="row">
+				   		<div style="padding-left: 80px;">
+				      		<button type="button" th:id="mbutton">Add</button>
+				      	</div>
+				      
+				    
+				  	 </div>
+					 
+				</div>
+				
+				<div id="tablediv">
+				
+					<table id="itemtable" style="align-items: center;">
+					<thead>
+						<tr style="width=20%;">
+						<th style="text-align:center">Item</th>
+						<th style="text-align:center">Price</th>
+						<th></th>
+						<th style="text-align:center">quantity</th>
+						<th></th>
+						<th style="text-align:center">Total</th>
+						</tr>
+				   </thead>
+						<tbody>
+            				
+                        </tbody>
+                        <tfoot>	
+                        	<tr id="footid" style="display:none;">
+                        		<td colspan="5" style=" font-size: 16; align-content: center;">
+                        			Total
+                        		</td>
+                        		<td>
+                        			<input type="text" id="footsum" style="width: 100%; text-align:right;" readonly>
+                        		</td>
+                        	</tr>
+                        </tfoot>				
+					
+					</table>
+				
+				
+				</div>
+				
+			
+			</div>
+					
+			<div class="rsplit">
+				<h2 class="lrh2">Select Items</h2>
+				<div id="btcontainer">
+						<button class="btn active" type="button"  th:id="all">All</button>
+				 		<button class="btn" type="button" th:each ="catname : ${catname}" th:id="${catname}"  th:utext="${catname}"></button>
+				 		
+					 		
+				</div>
+				
+                           <script>
+								// Add active class to the current button (highlight it)
+								var header = document.getElementById("btcontainer");
+								var btns = header.getElementsByClassName("btn");
+								for (var i = 0; i < btns.length; i++) {
+								  btns[i].addEventListener("click", function() {
+								  var current = document.getElementsByClassName("active");
+								  current[0].className = current[0].className.replace(" active", "");
+								  this.className += " active";
+								  });
+								}
+							</script>              
+				
+				<div id="listcat">
+					<button type="button" th:each ="allitem : ${allitem}" th:id="${allitem.sub_id}">
+					<h4 th:utext="${allitem.sub_name}"></h4>
+					<img th:src="@{/image/logo.jpeg}" alt="select" title="select" width="100" height="50"/>
+					<h4 style="white-space: nowrap;">price:</h4>
+					<h4 th:utext="${allitem.price}"></h4>
+	        				
+					</button>
+				
+				</div>
+			</div>
+			<div id="pdfgen" style=" align :right;">
+				<button type="button" id="pdfbutton" class="button1">Generete PDF</button>
+				<button type="button" id="finish" class="button2" style="display: none;">Finish the Quotation Here</button>
+				
+			</div>
+		
+		</div>
+		
+		
+		</div>
+		
+		
+		
+			
+	</body>
+</html>

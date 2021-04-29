@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" th:href="@{/css/addcustomer.css}"/>
+<link rel="stylesheet" th:href="@{/css/popupstyle.css}"/>
+ <th:block th:include="/head"></th:block>
+</head>
+<body>
+<br><br>
+<div class="headdiv">
+<h1>Customer List</h1>
+</div>
+<div class="alldiv">
+	<div class="row">
+		  <div class="column" th:each ="select_customer : ${select_customer}" id="customerdiv">
+		       <div class="cmpdiv">
+			   <a th:href="@{/show_qtdetails/{cdid}(cdid = ${select_customer.cdid})}" th:id="${select_customer.cdid}">
+			   <button style="background-color: green;">Quotations</button>
+								
+					<img th:src="@{/image/logo.jpeg}" alt="Quotations" title="Quotations" style="width:100%"/>
+								
+				</a>
+				<div class="cnamediv">
+				Customer name:<h2 th:utext="${select_customer.cname}"></h2>
+				</div>
+		        <div>
+		        	<div>
+		        	
+		        	
+		        		<a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${select_customer.cdid}+'2'"><img th:src="@{/image/v.png}" alt="view" title="view" width="20" height="20"/></a>
+		
+			        					<div class="modal modal-warning fade in" th:id="modal-warning+${select_customer.cdid}+'2'" >
+						    <div class="modal-dialog">
+						        <div class="modal-content">
+						            <div class="modal-header">
+						                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						                    <span aria-hidden="true">×</span></button>
+						                <h5 class="modal-title">View Customer Details</h5>
+						            </div>
+						            <div class="modal-body">
+						           			<div class="row">
+											    <div class="col-35">
+											      <label class="rdiv">Customer Name</label>
+											    </div>
+											    <div class="col-50">
+											      <input type="text" th:value="${select_customer.cname}" />
+											    </div>
+											  
+											  </div>
+											  
+											  <div class="row">
+											    <div class="col-35">
+											      <label class="rdiv">TRN NO</label>
+											    </div>
+											    <div class="col-50">
+											      <input type="text" th:value="${select_customer.trnno}"/>
+											    </div>
+											   
+											  </div>
+											  
+											  <div class="row">
+											    <div class="col-35">
+											      <label class="rdiv">Emirates</label>
+											    </div>
+											    <div class="col-50">
+											      <input type="text" th:value="${select_customer.emirates}"/>
+											    </div>
+											   
+											  </div>
+											  
+											  <div class="row">
+											    <div class="col-35">
+											      <label class="rdiv">Description</label>
+											    </div>
+											    <div class="col-50">
+											      <textarea rows="4" cols="30" th:utext=${select_customer.other} ></textarea>
+											    </div>
+											  </div>
+											 	<br>			  
+											 
+											   
+								      </div>
+						            <div class="modal-footer">
+						                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+						                <a th:href="@{/customer_update/{cdid}(cdid = ${select_customer.cdid})}"><img th:src="@{/image/m.jpg}" alt="modify" title="modify" width="20" height="20"/></a>
+		        				    </div>
+						        </div>
+						    </div>
+						</div>
+						
+		        	
+		        	
+		        		<a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${select_customer.cdid}+'1'"><img th:src="@{/image/d.jpg}" alt="delete" title="delete" width="20" height="20"/></a>
+			
+		        		<div class="modal modal-warning fade in" th:id="modal-warning+${select_customer.cdid}+'1'" >
+						    <div class="modal-dialog">
+						        <div class="modal-content">
+						            <div class="modal-header">
+						                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						                    <span aria-hidden="true">×</span></button>
+						                <h5 class="modal-title">Delete Customer</h5>
+						            </div>
+						            <div class="modal-body">
+						                <h3>Are you sure want to delete this Customer?</h3>
+						            </div>
+						            <div class="modal-footer">
+						                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+						                <a type="button" class="btn btn-outline" th:href="@{/delete_customer/{cdid}(cdid = ${select_customer.cdid})}"><i class="fa fa-check"></i>&nbsp;Yes</a>
+						            </div>
+						        </div>
+						    </div>
+						</div>
+		        		
+		        		
+		        		
+		        		<a th:href="@{/customer_update/{cdid}(cdid = ${select_customer.cdid})}"><img th:src="@{/image/m.jpg}" alt="modify" title="modify" width="20" height="20"/></a>
+		        	</div>
+		        	
+		        	
+		        </div>
+		        		
+		       </div>
+		  </div>
+	</div>
+</div>
+
+</body>
+</html>

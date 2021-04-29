@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <title th:utext="${title}"></title>
+      <style>
+      
+      
+      
+         th, td {
+         padding: 5px;
+         }
+         td span  {
+         font-size:90%;
+         font-style: italic;
+         color: red;
+         }
+         .error {
+         color: red;
+         font-style: italic;
+         }
+      </style>
+   </head>
+   <body>
+      <!-- Include _menu.html -->
+      <th:block th:include="/head"></th:block>
+      <br>
+       
+      <h2>Update Category</h2>
+      
+      
+       
+      <div th:if="${errorMessage != null}"
+           th:utext="${errorMessage}" class="error">...</div>
+       
+      <form th:action="@{/catupdate_form}" th:object="${catForm1}" method="POST">
+         <table>
+            <tr>
+               <td><input type="text" style="display:none;" th:field="*{cat_id}" value="${catForm.cat_id}"/></td>
+               <td><input type="text" style="display:none;" th:field="*{flag}" value="${catForm.flag}"/></td>
+               <td>Category Name</td>
+               <td><input type="text" th:field="*{cat_name}" value="${catForm1.cat_name}"/></td>
+               <td>
+                  <span th:if="${#fields.hasErrors('cat_name')}" th:errors="*{cat_name}">..</span>
+               </td>
+            </tr>
+            
+           <tr>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+               <td>Description</td>
+               <td><textarea  th:field="*{disc}" rows="4" cols="30" >${catForm1.disc}</textarea> </td>
+               
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+               <td>
+                  <input type="submit" value="Update" />
+                  <a th:href="@{/}">Cancel</a>
+               </td>
+               <td>&nbsp;</td>
+            </tr>
+         </table>
+      </form>
+    
+     
+       
+   </body>
+</html>

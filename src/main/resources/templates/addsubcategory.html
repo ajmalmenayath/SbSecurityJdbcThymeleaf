@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<link rel="stylesheet" th:href="@{/css/catstyle.css}"/>
+
+</head>
+<body>
+<th:block th:include="/head"></th:block>
+      <br>
+      <br>
+<h2>Add Subcategory</h2>
+
+  
+      <div th:if="${errorMessage != null}"
+           th:utext="${errorMessage}" class="error">...</div>
+	
+			<div class="container">
+			  <form th:action="@{/add_subcat_form}" th:object="${sub_catForm}" method="POST">
+				  
+				  <div class="row">
+				    <div class="col-25">
+				      <label for="*{sub_name}">Subcategory Name</label>
+				    </div>
+				    <div class="col-40">
+				      <input type="text" th:field="*{sub_name}" value="${sub_catForm.sub_name}"/>
+				    </div>
+				    <div class="col-35">
+						<span th:if="${#fields.hasErrors('sub_name')}" th:errors="*{sub_name}">..</span>				    
+				    </div>
+				  </div>
+				  
+				  <div class="row">
+				    <div class="col-25">
+				      <label for="*{price}">Price</label>
+				    </div>
+				    <div class="col-40">
+				      <input type="text" th:field="*{price}" value="${sub_catForm.price}"/>
+				    </div>
+				    <div class="col-35">
+						<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}">..</span>				    
+				    </div>
+				  </div>
+				  
+				  <div class="row">
+				    <div class="col-25">
+				      <label for=*{disc}>Description</label>
+				    </div>
+				    <div class="col-40">
+				      <textarea  th:field="*{disc}" rows="4" cols="30" >${sub_catForm.disc}</textarea>
+				    </div>
+				  </div>
+				 	<br>			  
+				  <div class="row">
+				    <div class="col-25">
+				      <label for="*{cat_name}">Category</label>
+				    </div>
+				    <div class="col-40">
+				        <select th:field="*{cat_name}">
+                           <option value=""> -- </option>
+                           <option th:each="clist : ${cat_list}"
+                                th:value="${clist.cat_id}"
+                                th:utext="${clist.cat_name}"/>
+                        </select>
+				    </div >
+				
+				    <div class="col-35">
+				       <span th:if="${#fields.hasErrors('cat_name')}" th:errors="*{cat_name}">..</span>
+				    </div>
+				    <div class="col-75">
+				      	<a th:href="@{/addcat}">Add Category</a>
+				      </div>
+				   </div>
+				   
+				   <div class="row">
+				   <div class="col-75">
+				      <input type="submit" value="Submit">
+				      </div>
+				    
+				  </div>
+				  
+			  </form>
+		</div>
+			
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<head>
+ <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+
+<div id="wi">
+		<ul id="nav">
+			<li>  <a th:href="@{/}">Home</a></li>
+			
+			<li th:if="${#request.userPrincipal != null}"><a th:href="@{/userInfo}">User Info</a></li>
+			
+			<li><a th:href="@{/admin}">Admin</a></li>
+					
+			<li th:if="${#request.userPrincipal != null}">  <a th:href="@{/}">Item</a>
+		<ul>
+			<li><a th:href="@{/addcat}">Add Category </a></li>
+			<li><a th:href="@{/searchcat}">Search Category </a></li>
+			<li><a th:href="@{/add_subcat}">Add subCategory </a></li>
+			<li><a th:href="@{/searchsubcat}">Search Subcategory </a></li>
+			
+		</ul>
+		</li>
+		
+		<li th:if="${#request.userPrincipal != null}">  <a th:href="@{/}">Customer</a>
+		<ul>
+			<li><a th:href="@{/addcustomer}">Add Customer </a></li>
+			<li><a th:href="@{/showCustomer}">Search Customer </a></li>
+			<li><a th:href="@{/CustomerQuotations}">All Quotations </a></li>
+			
+		</ul>
+		</li>
+		
+		<li th:if="${#request.userPrincipal != null}"><a th:href="@{/logout}">Logout</a></li>
+		</ul>
+
+</div>
+</body>
+</html>
+

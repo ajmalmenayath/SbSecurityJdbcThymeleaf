@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  
+  <link rel="stylesheet" th:href="@{/css/popupstyle.css}"/>
+  <script type="text/javascript" th:src="@{/js/DynamicSearch.js}"></script>
+  
+<style>
+
+.notfound{
+  display: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+  
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+
+ <th:block th:include="/head"></th:block>
+</head>
+<body>
+
+ <div th:if="${errorMessage != null}"
+           th:utext="${errorMessage}" class="error">...</div>
+	
+
+ <br>
+ <br>
+<h2 align="center">Quotation List</h2>
+<div>
+	<div style="width: 25%;float: right;">
+		<input type='text' id='txt_searchall' placeholder='Enter search text'/>&nbsp;
+	</div>
+	<div>
+		<table>
+			<thead>
+				  <tr>
+				    <th>CustomerName</th>
+				    <th>Invorse No</th>
+				    <th>Date</th>
+				    <th>Validity</th>
+				    <th>Delivery</th>
+				    <th>Payment</th>
+				    <th>Quotation Type</th>
+				    <th>View</th> 
+				    <th>Invoice</th>
+				    <th>DN</th>   
+				  </tr>
+			</thead>
+			<tbody>  
+				  <tr th:each ="allQuotation : ${allQuotation}">
+				      
+				                 
+				                 <td style="display:none;"></td>
+					               <td th:utext="${allQuotation.cname}"></td>
+					               <td th:utext="${allQuotation.invorse_no}"></td>
+					               <td th:utext="${allQuotation.cdate}"></td>
+					               <td th:utext="${allQuotation.validity}"></td>
+					               <td th:utext="${allQuotation.delivery}"></td>
+					               <td th:utext="${allQuotation.payment}"></td>
+					               <td th:utext="${allQuotation.cam_type}"></td>
+					               <td>
+					               		<a th:href="@{/Qouotaton/view/{cid}/{cdid}(cid =${allQuotation.cid},cdid =${allQuotation.cdid})}"><img th:src="@{/image/v.png}"  alt="View" title="View" width="20" height="20"/></a>
+					               </td>
+					               <td>
+					               		<a th:href="@{/taxinvoice/generate/{cid}/{cdid}(cid =${allQuotation.cid},cdid =${allQuotation.cdid})}">Tax Invoice</a>
+					               </td>
+					               <td>
+					               		<a th:href="@{/DN/generate/{cid}/{cdid}(cid =${allQuotation.cid},cdid =${allQuotation.cdid})}">Delivery Note</a>
+					               </td>
+					               
+					               
+					             
+				    </tr>
+				    <tr class='notfound'>
+    					 <td colspan='4'>No record found</td>
+  					</tr>
+			</tbody>               
+		    
+		</table>
+	</div>
+</div>
+</body>
+</html>
