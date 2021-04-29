@@ -28,7 +28,7 @@ public class AllCountryController {
 	  public void viewMembers() {
 
 	     List<AllCountry> list = allser.AllCountryname();
-	     LOGGER.info("ajmal logger");
+	     LOGGER.info("ajmal loggersdd");
 	     
 	     for(AllCountry dept: list)  {
 	            System.out.println("name: "+ dept.getName()+" - iso: "+ dept.getIso());
