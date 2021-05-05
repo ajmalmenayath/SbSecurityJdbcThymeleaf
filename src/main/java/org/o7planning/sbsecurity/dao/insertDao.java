@@ -46,7 +46,8 @@ public class insertDao extends JdbcDaoSupport {
  	    String in_sql="insert into app_user_reg (userId, userName,firstName,lastName,enabled,gender,email,encrytedPassword,countryCode) values(?,?,?,?,?,?,?,?,?)";
     	app.setEnabled(true);
  	    
- 	    return this.getJdbcTemplate().update(in_sql, new Object[] { app.getUserId(),
+ 	    return this.getJdbcTemplate().update(in_sql, new Object[] { 
+ 	    		app.getUserId(),
                 app.getUserName(),
                 app.getFirstName(),
                 app.getLastName(),
